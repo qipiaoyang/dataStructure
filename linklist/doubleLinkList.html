@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>双向链表</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        function DoublyLinkedList() {
+            var Node = function (element) {
+                this.element = element;
+                this.next = null;
+                this.prev = null;
+            }
+
+            var length = 0;
+            var head = null;// 头部
+            var tail = null;// 尾部
+
+            /**
+             * 将节点添加到对应的位置上去
+             * @param element
+             * @returns {*}
+             */
+            this.append = function (element) {
+                var node = new Node(element),
+                    current;
+
+                if (head === null) {
+                    head = node;
+                    tail = node;
+                } else {
+                    node.prev = tail;
+                    tail.next = node;
+                    tail = node;
+                }
+                length++;
+            }
+
+            /**
+             * 插入一个元素
+             * @param position
+             * @param element
+             * @returns {boolean}
+             */
+            this.insert = function (position, element) {
+                if (position > -1 && position <= length) {
+                    var node = new Node(element),
+                        current = head,
+                        index = 0,
+                        previous;
+                    if (position === 0) {
+                        if (!head) {
+                            head = node;
+                            tail = node;
+                        } else {
+                            node.next = current;
+                            current.prev = node;
+                            head = node;
+                        }
+                    } else if (position === length) {
+                        current = tail;
+                        current.next = node;
+                        node.prev = current;
+                        tail = node;
+                    } else {
+                        while (index++ < position) {
+                            previous = current;
+                            current = current.next;
+                        }
+                        node.next = current;
+                        previous.next = node;
+
+                        current.prev = node;
+                        node.prev = previous;
+                    }
+                    length++;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            /**
+             * 获取对应位置的节点
+             * @param position
+             * @returns {*}
+             */
+            this.getNode = function (position) {
+                if (position > -1 && position < length) {
+                    var index = 0,
+                        current = head,
+                        previous;
+                    while (current) {
+                        if (index === position) {
+                            return current;
+                        }
+                        previous = current;
+                        current = current.next;
+                        index++;
+                    }
+                } else {
+                    return null;
+                }
+            }
+        }
+
+        var doublyLinkList = new DoublyLinkedList();
+        doublyLinkList.append(15);
+        doublyLinkList.append(11);
+        console.log(doublyLinkList.getNode(1), "doublyLinkList");
+    </script>
+
+
+
+</body>
+
+</html>

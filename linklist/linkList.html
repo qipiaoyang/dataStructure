@@ -1,0 +1,196 @@
+< !DOCTYPE html >
+    <html>
+        <head>
+            <meta charset="utf-8">
+                <title>链表的操作</title>
+</head>
+            <body>
+                <script type="text/javascript">
+                    function LinkedList() {
+        var Node = function (element) {
+                        this.element = element;
+                    this.next = null;
+                }
+        
+                var length = 0;
+                var head = null;
+        
+                /**
+                 * 新增一个元素
+                 * @param element
+                 */
+        this.append = function (element) {
+            var node = new Node(element),
+                        current = null;
+        
+                    // 如果是第一个节点
+            if (head === null) {
+                        head = node;
+            } else {
+                        current = head;
+                while (current.next) {
+                        current = current.next;
+                }
+                current.next = node;
+            }
+            length++;
+        };
+
+        /**
+         * 插入一个元素
+         * @param position
+         * @param element
+         */
+        this.insert = function (position, element) {
+            if (position > -1 && position <= length) {
+                var node = new Node(element),
+                        current = head,
+                        previous,// 找到插入元素的前一个元素
+                        index = 0;
+    
+                if (position === 0) {
+                        node.next = current;
+                    head = node;
+                } else {
+                    while (index++ < position) {
+                        previous = current;
+                    current = current.next;
+                }
+                node.next = current;
+                previous.next = node;
+            }
+            length++;
+            return true;
+
+            } else {
+                return false;
+                }
+            }
+    
+            /**
+             * 移除某一个元素
+             * @param position
+         * @returns {*}
+                    */
+        this.removeAt = function (position) {
+            if (position > -1 && position <= length) {
+                var current = head,
+                        previous,
+                        index = 0;
+                if (position === 0) {
+                        head = current.next;
+                } else {
+                    while (index++ < position) {
+                        previous = current;
+                    current = current.next;
+                }
+                previous.next = current.next;
+            }
+            length--;
+            return current.element;
+            } else {
+                return null;
+                }
+            }
+    
+            /**
+             *  查询一个元素的indexOf
+             * @param element
+         * @returns {number}
+                    */
+        this.indexOf = function (element) {
+            var index = 0,
+                        current = head;
+            while (current) {
+                if (current.element === element) {
+                    return index
+                }
+                current = current.next;
+                index++;
+            }
+            return -1;
+        }
+
+        /**
+         * 串行化一个链表
+         * @returns {string}
+                    */
+        this.toString = function () {
+            var current = head,
+                        string = "";
+            while (current) {
+                        string += "," + current.element;
+                    current = current.next;
+                }
+                return string.slice(1);
+            }
+    
+    
+            /**
+             * 判断一个链表是不是为空
+         * @returns {boolean}
+                    */
+        this.isEmpty = function () {
+            return length === 0;
+                }
+        
+                /**
+                 * 判断一个链表的长度
+         * @returns {number}
+                    */
+        this.size = function () {
+            return length;
+                }
+        
+                /**
+                 * 获取一个链表的头部
+         * @returns {*}
+                    */
+        this.getHead = function () {
+            return head;
+                }
+        
+                /**
+                 * 获取对应位置的节点
+                 * @param position
+         * @returns {*}
+                    */
+        this.getNode = function(position) {
+            if(position > -1 && position < length) {
+                var index = 0,
+                        current = head;
+                while (current) {
+                    if (index === position) {
+                        return current;
+                }
+                current = current.next;
+                index++;
+            }
+            } else {
+                return null;
+                }
+            }
+    
+    
+        }
+    
+        var list = new LinkedList();
+        list.append(15);
+        list.append(10);
+        list.append(1);
+        list.append(11);
+        list.append(12);
+        console.log(list, "list");
+        console.log(list.size, "长度");
+        console.log(list.toString(), "字符串");
+        console.log(list.indexOf(1), "1在哪个位置");
+        console.log(list.removeAt(3), "移除第4个位置的节点");
+        console.log(list.insert(3, "111"), "插入第4个位置的节点");
+        console.log(list.getHead(), "移除第4个位置的节点");
+        console.log(list.toString(), "查看所有链表");
+    
+        console.log(list.getNode(4), "查看所有链表");
+        console.log(list.toString(), "查看所有链表");
+</script>
+            </body>
+</html>
