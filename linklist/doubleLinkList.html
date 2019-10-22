@@ -105,6 +105,157 @@
                     return null;
                 }
             }
+
+            /**
+             * 移除对应位置的元素
+             * @param position
+             * @returns {*}
+             */
+            this.removeAt = function (position) {
+                if (position > -1 && position < length) {
+                    var index = 0,
+                        current = head,
+                        previous;
+                    if (position === 0) {
+                        head = current.next;
+                        if (length === 1) {
+                            tail = null;
+                        } else {
+                            head.prev = null
+                        }
+                    } else if (position === length - 1) {
+                        current = tail;
+                        tail = current.prev;
+                        tail.next = null;
+
+                    } else {
+                        while (index++ < position) {
+                            previous = current;
+                            current = current.next;
+                        }
+                        previous.next = current.next;
+                        current.next.prev = previous;
+                    }
+                    return current.element;
+                } else {
+                    return null;
+                }
+            }
+
+            /**
+             *  查询一个元素的indexOf
+             * @param element
+             * @returns {number}
+             */
+            this.indexOf = function (element) {
+
+                var current = head,
+                    index = -1;
+
+                if (element == current.element) {
+                    return 0;
+                }
+
+                index++;
+
+                while (current.next) {
+
+                    if (element == current.element) {
+                        return index;
+                    }
+
+                    current = current.next;
+                    index++;
+                }
+
+                if (element == current.element) {
+                    return index;
+                }
+
+                return -1;
+            };
+
+            /**
+             * 判断是不是为空
+             * @returns {boolean}
+             */
+            this.isEmpty = function () {
+                return length === 0;
+            };
+
+            /**
+             * 获取当前链表的长度
+             * @returns {number}
+             */
+            this.size = function () {
+                return length;
+            };
+
+            /**
+             * 正向链表串行化
+             * @returns {string}
+             */
+            this.toString = function () {
+
+                var current = head,
+                    s = current ? current.element : '';
+
+                while (current && current.next) {
+                    current = current.next;
+                    s += ', ' + current.element;
+                }
+
+                return s;
+            };
+
+            /**
+             * 反向链表串行化
+             * @returns {string}
+             */
+            this.inverseToString = function () {
+
+                var current = tail,
+                    s = current ? current.element : '';
+
+                while (current && current.prev) {
+                    current = current.prev;
+                    s += ', ' + current.element;
+                }
+
+                return s;
+            };
+
+            /**
+             * 打印当前链表
+             */
+            this.print = function () {
+                console.log(this.toString());
+            };
+
+            /**
+             * 反向打印当前链表
+             */
+            this.printInverse = function () {
+                console.log(this.inverseToString());
+            };
+
+            /**
+             * 获取头部
+             * @returns {*}
+             */
+            this.getHead = function () {
+                return head;
+            };
+
+            /**
+             * 获取底部
+             * @returns {*}
+             */
+            this.getTail = function () {
+                return tail;
+            }
+
+
         }
 
         var doublyLinkList = new DoublyLinkedList();
